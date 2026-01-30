@@ -3,7 +3,7 @@
   "id": "sigma.hello-world",
   "name": "Example",
   "previousName": "Hello World",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "An example extension demonstrating context menus, commands, notifications, dialogs, context API, built-in commands, configurable settings, progress reporting, and keybindings.",
   "author": {
     "name": "Aleksey Hoffman",
@@ -180,7 +180,7 @@
       },
       {
         "command": "demo-progress",
-        "key": "ctrl+shift+p",
+        "key": "ctrl+shift+d",
         "when": "always"
       }
     ]
