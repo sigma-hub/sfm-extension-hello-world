@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.5.1] - 2026-01-30
+
+### Changed
+
+- Updated repository URL to new location (sfm-extension-example)
+
 ## [1.5.0] - 2026-01-30
 
 ### Changed
