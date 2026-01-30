@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.2.0] - 2026-01-30
+
+### Changed
+
+- Updated manifest to use new categories system (replaced tags-based classification)
+- Category changed to "Example" for clearer extension classification
+- Fixed repository URL in manifest
+
 ## [1.1.0] - 2026-01-30
 
 ### Added
