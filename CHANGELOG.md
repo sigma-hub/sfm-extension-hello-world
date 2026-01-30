@@ -2,6 +2,13 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.6.0] - 2026-01-30
+
+### Added
+
+- Added `previousName` field to manifest for backward compatibility and search
+- Extension is now searchable by its previous name "Hello World"
+
 ## [1.5.1] - 2026-01-30
 
 ### Changed
