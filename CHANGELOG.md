@@ -2,6 +2,13 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.4.1] - 2026-01-30
+
+### Fixed
+
+- "Greet User" command now properly uses configured settings (greeting, style, duration)
+- Previously the greet command was hardcoded and ignored user settings
+
 ## [1.4.0] - 2026-01-30
 
 ### Added

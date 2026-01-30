@@ -145,8 +145,18 @@ async function activate(context) {
   sigma.commands.registerCommand(
     { id: 'greet', title: 'Greet User' },
     async () => {
+      const showNotifications = await sigma.settings.get('showNotifications');
+      if (!showNotifications) {
+        console.log('[Hello World] Notifications disabled');
+        return;
+      }
+
+      const greeting = await sigma.settings.get('greeting');
+      const duration = await sigma.settings.get('notificationDuration');
+      const style = await sigma.settings.get('greetingStyle');
+
       const result = await sigma.ui.showDialog({
-        title: 'Greeting',
+        title: greeting || 'Hello',
         message: 'What is your name?',
         type: 'prompt',
         defaultValue: 'World',
@@ -156,10 +166,10 @@ async function activate(context) {
 
       if (result.confirmed && result.value) {
         sigma.ui.showNotification({
-          title: 'Hello!',
-          message: `Hello, ${result.value}! Welcome to Sigma File Manager!`,
+          title: greeting || 'Hello',
+          message: getGreetingByStyle(style, result.value),
           type: 'success',
-          duration: 5000
+          duration: duration || 5000
         });
       }
     }
