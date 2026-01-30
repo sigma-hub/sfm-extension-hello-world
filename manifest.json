@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/v2/src/modules/extensions/sdk/manifest.schema.json",
   "id": "sigma.hello-world",
-  "name": "Hello World",
-  "version": "1.4.1",
-  "description": "A demo extension showcasing context menu, commands, notifications, dialogs, context API, built-in commands, and configurable settings.",
+  "name": "Example",
+  "version": "1.5.0",
+  "description": "An example extension demonstrating context menus, commands, notifications, dialogs, context API, built-in commands, and configurable settings.",
   "author": {
     "name": "Aleksey Hoffman",
     "url": "https://github.com/aleksey-hoffman"
@@ -27,7 +27,7 @@
   ],
   "contributes": {
     "configuration": {
-      "title": "Hello World Settings",
+      "title": "Example Extension Settings",
       "properties": {
         "greeting": {
           "type": "string",

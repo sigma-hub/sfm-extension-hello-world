@@ -2,6 +2,14 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.5.0] - 2026-01-30
+
+### Changed
+
+- Renamed extension from "Hello World" to "Example"
+- Updated description to better reflect the extension's purpose as a reference implementation
+- Updated configuration title to "Example Extension Settings"
+
 ## [1.4.1] - 2026-01-30
 
 ### Fixed
