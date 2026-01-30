@@ -2,6 +2,16 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.1.0] - 2026-01-30
+
+### Added
+
+- New context menu item: "Copy Path" - copies the selected item's path to clipboard
+
+### Changed
+
+- Updated description to better reflect extension capabilities
+
 ## [1.0.0] - 2025-01-30
 
 ### Added

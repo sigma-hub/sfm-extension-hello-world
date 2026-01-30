@@ -83,6 +83,32 @@ async function activate(context) {
     }
   );
 
+  sigma.contextMenu.registerItem(
+    {
+      id: 'copy-path',
+      title: '📋 Copy Path',
+      group: 'extensions',
+      order: 4,
+      when: {
+        selectionType: 'single'
+      }
+    },
+    async (menuContext) => {
+      const entry = menuContext.selectedEntries[0];
+      
+      if (entry) {
+        await navigator.clipboard.writeText(entry.path);
+        
+        sigma.ui.showNotification({
+          title: 'Path Copied',
+          message: `Copied to clipboard: ${entry.path}`,
+          type: 'success',
+          duration: 2000
+        });
+      }
+    }
+  );
+
   sigma.commands.registerCommand(
     { id: 'greet', title: 'Greet User' },
     async () => {
@@ -111,7 +137,7 @@ async function activate(context) {
     () => {
       sigma.ui.showNotification({
         title: 'Hello World Extension',
-        message: 'Version 1.0.0 - A demo extension for Sigma File Manager',
+        message: 'Version 1.1.0 - A demo extension for Sigma File Manager',
         type: 'info'
       });
     }

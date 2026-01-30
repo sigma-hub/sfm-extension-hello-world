@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/v2/src/modules/extensions/sdk/manifest.schema.json",
   "id": "sigma.hello-world",
   "name": "Hello World",
-  "version": "1.0.0",
-  "description": "A simple demo extension that adds a greeting to the context menu and shows notifications.",
+  "version": "1.1.0",
+  "description": "A demo extension that adds greetings, file info, and selection tools to the context menu.",
   "author": {
     "name": "Aleksey Hoffman",
     "url": "https://github.com/aleksey-hoffman"
@@ -11,7 +11,12 @@
   "repository": "https://github.com/aleksey-hoffman/sfm-ext-hello-world",
   "license": "MIT",
   "icon": "icon.png",
-  "tags": ["demo", "hello-world", "example", "starter"],
+  "tags": [
+    "demo",
+    "hello-world",
+    "example",
+    "starter"
+  ],
   "type": "api",
   "main": "index.js",
   "permissions": [
@@ -57,6 +62,15 @@
         "when": {
           "selectionType": "single",
           "entryType": "file"
+        }
+      },
+      {
+        "id": "copy-path",
+        "title": "📋 Copy Path",
+        "group": "extensions",
+        "order": 4,
+        "when": {
+          "selectionType": "single"
         }
       }
     ]
