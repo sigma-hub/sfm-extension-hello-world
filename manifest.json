@@ -3,8 +3,8 @@
   "id": "sigma.hello-world",
   "name": "Example",
   "previousName": "Hello World",
-  "version": "1.6.0",
-  "description": "An example extension demonstrating context menus, commands, notifications, dialogs, context API, built-in commands, and configurable settings.",
+  "version": "1.7.0",
+  "description": "An example extension demonstrating context menus, commands, notifications, dialogs, context API, built-in commands, configurable settings, and progress reporting.",
   "author": {
     "name": "Aleksey Hoffman",
     "url": "https://github.com/aleksey-hoffman"
@@ -94,6 +94,11 @@
         "id": "show-settings",
         "title": "Show Current Settings",
         "description": "Displays the current extension settings"
+      },
+      {
+        "id": "demo-progress",
+        "title": "Demo Progress API",
+        "description": "Demonstrates the progress notification API with cancellation support"
       }
     ],
     "contextMenu": [

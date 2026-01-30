@@ -2,6 +2,25 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.7.0] - 2026-01-30
+
+### Added
+
+- **Progress API Demo** - New "Demo Progress API" command showcasing `sigma.ui.withProgress`:
+  - Displays a progress notification with percentage
+  - Supports cancellation via cancel button
+  - Shows completion/cancellation status when done
+
+### Technical
+
+- Demonstrates new `sigma.ui.withProgress(options, task)` API:
+  - `options.title` - Title shown in progress notification
+  - `options.location` - Where to show progress ('notification' or 'statusBar')
+  - `options.cancellable` - Allow user to cancel the operation
+  - `progress.report({ message, increment })` - Update progress display
+  - `token.isCancellationRequested` - Check if cancelled
+  - `token.onCancellationRequested(callback)` - Listen for cancellation
+
 ## [1.6.0] - 2026-01-30
 
 ### Added

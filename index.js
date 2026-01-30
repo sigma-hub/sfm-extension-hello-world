@@ -1,5 +1,5 @@
 /**
- * Hello World Extension for Sigma File Manager
+ * Example Extension for Sigma File Manager
  * 
  * This is a demo extension that demonstrates how to:
  * - Add items to the context menu
@@ -9,6 +9,7 @@
  * - Access app context (current path, selected entries)
  * - Execute built-in commands (navigate, open dialogs)
  * - Use configurable settings (via sigma.settings API)
+ * - Show progress for long-running operations (via sigma.ui.withProgress)
  */
 
 function getGreetingByStyle(style, name) {
@@ -21,6 +22,10 @@ function getGreetingByStyle(style, name) {
     default:
       return `Hello, ${name}! Nice to see you!`;
   }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function activate(context) {
@@ -181,8 +186,8 @@ async function activate(context) {
       const appVersion = await sigma.context.getAppVersion();
       const duration = await sigma.settings.get('notificationDuration');
       sigma.ui.showNotification({
-        title: 'Hello World Extension',
-        message: `Version 1.4.0 - Running on Sigma File Manager v${appVersion}`,
+        title: 'Example Extension',
+        message: `Version 1.7.0 - Running on Sigma File Manager v${appVersion}`,
         type: 'info',
         duration: duration || 4000
       });
@@ -198,7 +203,7 @@ async function activate(context) {
         .join('\n');
 
       await sigma.ui.showDialog({
-        title: 'Hello World Settings',
+        title: 'Example Extension Settings',
         message: `Current settings:\n\n${settingsText}\n\nYou can change these in Settings > Extensions.`,
         type: 'info',
         confirmText: 'OK'
@@ -258,6 +263,59 @@ async function activate(context) {
         type: 'info',
         confirmText: 'OK'
       });
+    }
+  );
+
+  sigma.commands.registerCommand(
+    { id: 'demo-progress', title: 'Demo Progress API', description: 'Demonstrates the progress notification API' },
+    async () => {
+      const totalItems = 10;
+      let processedItems = 0;
+      let wasCancelled = false;
+
+      const result = await sigma.ui.withProgress(
+        {
+          title: 'Processing Items...',
+          location: 'notification',
+          cancellable: true
+        },
+        async (progress, token) => {
+          token.onCancellationRequested(() => {
+            console.log('[Example] Progress cancelled by user');
+            wasCancelled = true;
+          });
+
+          for (let itemIndex = 0; itemIndex < totalItems; itemIndex++) {
+            if (token.isCancellationRequested) {
+              return { completed: false, processed: processedItems };
+            }
+
+            progress.report({
+              message: `Processing item ${itemIndex + 1} of ${totalItems}`,
+              increment: 100 / totalItems
+            });
+
+            await sleep(500);
+            processedItems++;
+          }
+
+          return { completed: true, processed: processedItems };
+        }
+      );
+
+      if (result.completed) {
+        sigma.ui.showNotification({
+          title: 'Processing Complete',
+          message: `Successfully processed ${result.processed} items!`,
+          type: 'success'
+        });
+      } else {
+        sigma.ui.showNotification({
+          title: 'Processing Cancelled',
+          message: `Processed ${result.processed} of ${totalItems} items before cancellation.`,
+          type: 'warning'
+        });
+      }
     }
   );
 
