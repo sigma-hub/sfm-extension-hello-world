@@ -1,0 +1,67 @@
+{
+  "$schema": "https://raw.githubusercontent.com/aleksey-hoffman/sigma-file-manager/v2/src/modules/extensions/sdk/manifest.schema.json",
+  "id": "sigma.hello-world",
+  "name": "Hello World",
+  "version": "1.0.0",
+  "description": "A simple demo extension that adds a greeting to the context menu and shows notifications.",
+  "author": {
+    "name": "Aleksey Hoffman",
+    "url": "https://github.com/aleksey-hoffman"
+  },
+  "repository": "https://github.com/aleksey-hoffman/sfm-ext-hello-world",
+  "license": "MIT",
+  "icon": "icon.png",
+  "tags": ["demo", "hello-world", "example", "starter"],
+  "type": "api",
+  "main": "index.js",
+  "permissions": [
+    "contextMenu",
+    "commands",
+    "notifications",
+    "dialogs"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "greet",
+        "title": "Greet User",
+        "description": "Shows a greeting notification"
+      },
+      {
+        "id": "show-info",
+        "title": "Show File Info",
+        "description": "Shows information about selected files"
+      }
+    ],
+    "contextMenu": [
+      {
+        "id": "say-hello",
+        "title": "👋 Say Hello",
+        "group": "extensions",
+        "order": 1
+      },
+      {
+        "id": "count-selected",
+        "title": "📊 Count Selected Items",
+        "group": "extensions",
+        "order": 2,
+        "when": {
+          "selectionType": "multiple"
+        }
+      },
+      {
+        "id": "file-info",
+        "title": "ℹ️ Show File Details",
+        "group": "extensions",
+        "order": 3,
+        "when": {
+          "selectionType": "single",
+          "entryType": "file"
+        }
+      }
+    ]
+  },
+  "engines": {
+    "sigmaFileManager": ">=2.0.0"
+  }
+}
