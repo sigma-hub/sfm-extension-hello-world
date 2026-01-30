@@ -2,6 +2,26 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.3.0] - 2026-01-30
+
+### Added
+
+- New context API demonstrations:
+  - "Show Current Context" command - displays current path and selected entries
+  - Uses `sigma.context.getCurrentPath()` and `sigma.context.getSelectedEntries()`
+- New built-in command demonstrations:
+  - "Quick View" context menu item - opens files in quick view using `sigma.quickView.open`
+  - "Open in System Explorer" context menu item - opens items in system file explorer
+  - "List Built-in Commands" command - shows available built-in commands
+- New dialog API demonstration:
+  - "Open File Dialog" command - demonstrates native file picker using `sigma.dialog.openFile()`
+- App version display using `sigma.context.getAppVersion()`
+
+### Changed
+
+- Updated "Show Extension Info" to display app version alongside extension version
+- Updated description to reflect new capabilities
+
 ## [1.2.0] - 2026-01-30
 
 ### Changed

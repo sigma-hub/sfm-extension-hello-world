@@ -6,11 +6,16 @@
  * - Register and execute commands
  * - Show notifications
  * - Show dialogs
+ * - Access app context (current path, selected entries)
+ * - Execute built-in commands (navigate, open dialogs)
  */
 
 async function activate(context) {
   console.log('[Hello World] Extension activated!');
   console.log('[Hello World] Extension path:', context.extensionPath);
+
+  const appVersion = await sigma.context.getAppVersion();
+  console.log('[Hello World] App version:', appVersion);
 
   sigma.contextMenu.registerItem(
     {
@@ -134,12 +139,121 @@ async function activate(context) {
 
   sigma.commands.registerCommand(
     { id: 'show-info', title: 'Show Extension Info' },
-    () => {
+    async () => {
+      const appVersion = await sigma.context.getAppVersion();
       sigma.ui.showNotification({
         title: 'Hello World Extension',
-        message: 'Version 1.1.0 - A demo extension for Sigma File Manager',
+        message: `Version 1.3.0 - Running on Sigma File Manager v${appVersion}`,
         type: 'info'
       });
+    }
+  );
+
+  sigma.commands.registerCommand(
+    { id: 'show-context', title: 'Show Current Context', description: 'Shows current path and selection info' },
+    () => {
+      const currentPath = sigma.context.getCurrentPath();
+      const selectedEntries = sigma.context.getSelectedEntries();
+
+      const message = selectedEntries.length > 0
+        ? `Path: ${currentPath}\nSelected: ${selectedEntries.length} items\nFirst: ${selectedEntries[0].name}`
+        : `Path: ${currentPath}\nNo items selected`;
+
+      sigma.ui.showDialog({
+        title: 'Current Context',
+        message: message,
+        type: 'info',
+        confirmText: 'OK'
+      });
+    }
+  );
+
+  sigma.commands.registerCommand(
+    { id: 'open-file-dialog', title: 'Open File Dialog', description: 'Opens a native file picker' },
+    async () => {
+      const result = await sigma.dialog.openFile({
+        title: 'Select a file',
+        filters: [
+          { name: 'Images', extensions: ['png', 'jpg', 'jpeg', 'gif'] },
+          { name: 'All Files', extensions: ['*'] }
+        ]
+      });
+
+      if (result) {
+        sigma.ui.showNotification({
+          title: 'File Selected',
+          message: `You selected: ${Array.isArray(result) ? result.join(', ') : result}`,
+          type: 'success'
+        });
+      }
+    }
+  );
+
+  sigma.commands.registerCommand(
+    { id: 'list-builtin-commands', title: 'List Built-in Commands', description: 'Shows available built-in commands' },
+    async () => {
+      const commands = sigma.commands.getBuiltinCommands();
+      const commandList = commands.map(cmd => `• ${cmd.id}`).join('\n');
+
+      await sigma.ui.showDialog({
+        title: 'Built-in Commands',
+        message: `Available commands:\n\n${commandList}`,
+        type: 'info',
+        confirmText: 'OK'
+      });
+    }
+  );
+
+  sigma.contextMenu.registerItem(
+    {
+      id: 'quick-view-file',
+      title: '👁️ Quick View',
+      group: 'extensions',
+      order: 5,
+      when: {
+        selectionType: 'single',
+        entryType: 'file'
+      }
+    },
+    async (menuContext) => {
+      const file = menuContext.selectedEntries[0];
+      if (file) {
+        try {
+          await sigma.commands.executeCommand('sigma.quickView.open', file.path);
+        } catch (err) {
+          sigma.ui.showNotification({
+            title: 'Quick View Error',
+            message: err.message || 'Could not open quick view',
+            type: 'error'
+          });
+        }
+      }
+    }
+  );
+
+  sigma.contextMenu.registerItem(
+    {
+      id: 'open-in-explorer',
+      title: '📂 Open in System Explorer',
+      group: 'extensions',
+      order: 6,
+      when: {
+        selectionType: 'single'
+      }
+    },
+    async (menuContext) => {
+      const entry = menuContext.selectedEntries[0];
+      if (entry) {
+        try {
+          await sigma.commands.executeCommand('sigma.navigator.openInSystemExplorer', entry.path);
+        } catch (err) {
+          sigma.ui.showNotification({
+            title: 'Error',
+            message: err.message || 'Could not open in explorer',
+            type: 'error'
+          });
+        }
+      }
     }
   );
 
