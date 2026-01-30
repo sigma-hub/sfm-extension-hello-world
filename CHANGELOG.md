@@ -2,6 +2,29 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.8.0] - 2026-01-30
+
+### Added
+
+- **Keybinding Contributions** - Extension now demonstrates keyboard shortcuts:
+  - `Ctrl+Shift+G` - Greet User command (works anywhere)
+  - `Ctrl+Shift+I` - Show Current Context (when navigator focused)
+  - `Ctrl+Alt+C` - Copy Path (when single item selected)
+  - `Ctrl+Shift+P` - Demo Progress API (works anywhere)
+
+### Technical
+
+- Demonstrates new `contributes.keybindings` manifest feature:
+  - `command` - Command ID to execute (without extension prefix)
+  - `key` - Keyboard shortcut (e.g., 'ctrl+shift+h')
+  - `when` - Condition when keybinding is active:
+    - `always` - Always active
+    - `fileSelected` - When files are selected
+    - `directorySelected` - When directories are selected
+    - `singleSelected` - When single item selected
+    - `multipleSelected` - When multiple items selected
+    - `navigatorFocused` - When navigator has focus
+
 ## [1.7.0] - 2026-01-30
 
 ### Added

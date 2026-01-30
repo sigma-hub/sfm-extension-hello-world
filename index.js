@@ -187,7 +187,7 @@ async function activate(context) {
       const duration = await sigma.settings.get('notificationDuration');
       sigma.ui.showNotification({
         title: 'Example Extension',
-        message: `Version 1.7.0 - Running on Sigma File Manager v${appVersion}`,
+        message: `Version 1.8.0 - Running on Sigma File Manager v${appVersion}`,
         type: 'info',
         duration: duration || 4000
       });
