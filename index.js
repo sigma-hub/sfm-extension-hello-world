@@ -8,7 +8,20 @@
  * - Show dialogs
  * - Access app context (current path, selected entries)
  * - Execute built-in commands (navigate, open dialogs)
+ * - Use configurable settings (via sigma.settings API)
  */
+
+function getGreetingByStyle(style, name) {
+  switch (style) {
+    case 'formal':
+      return `Good day, ${name}. How may I assist you?`;
+    case 'casual':
+      return `Hey ${name}! What's up?`;
+    case 'friendly':
+    default:
+      return `Hello, ${name}! Nice to see you!`;
+  }
+}
 
 async function activate(context) {
   console.log('[Hello World] Extension activated!');
@@ -16,6 +29,13 @@ async function activate(context) {
 
   const appVersion = await sigma.context.getAppVersion();
   console.log('[Hello World] App version:', appVersion);
+
+  const settings = await sigma.settings.getAll();
+  console.log('[Hello World] Current settings:', settings);
+
+  sigma.settings.onChange('showNotifications', (newValue, oldValue) => {
+    console.log(`[Hello World] showNotifications changed from ${oldValue} to ${newValue}`);
+  });
 
   sigma.contextMenu.registerItem(
     {
@@ -25,14 +45,22 @@ async function activate(context) {
       order: 1
     },
     async (menuContext) => {
-      const count = menuContext.selectedEntries.length;
+      const showNotifications = await sigma.settings.get('showNotifications');
+      if (!showNotifications) {
+        console.log('[Hello World] Notifications disabled, skipping');
+        return;
+      }
+
+      const greeting = await sigma.settings.get('greeting');
+      const duration = await sigma.settings.get('notificationDuration');
+      const style = await sigma.settings.get('greetingStyle');
       const firstName = menuContext.selectedEntries[0]?.name || 'there';
       
       sigma.ui.showNotification({
-        title: 'Hello!',
-        message: `Hello from the Hello World extension! You selected: ${firstName}`,
+        title: greeting || 'Hello',
+        message: getGreetingByStyle(style, firstName),
         type: 'info',
-        duration: 3000
+        duration: duration || 3000
       });
     }
   );
@@ -141,10 +169,29 @@ async function activate(context) {
     { id: 'show-info', title: 'Show Extension Info' },
     async () => {
       const appVersion = await sigma.context.getAppVersion();
+      const duration = await sigma.settings.get('notificationDuration');
       sigma.ui.showNotification({
         title: 'Hello World Extension',
-        message: `Version 1.3.0 - Running on Sigma File Manager v${appVersion}`,
-        type: 'info'
+        message: `Version 1.4.0 - Running on Sigma File Manager v${appVersion}`,
+        type: 'info',
+        duration: duration || 4000
+      });
+    }
+  );
+
+  sigma.commands.registerCommand(
+    { id: 'show-settings', title: 'Show Current Settings', description: 'Displays the current extension settings' },
+    async () => {
+      const settings = await sigma.settings.getAll();
+      const settingsText = Object.entries(settings)
+        .map(([key, value]) => `${key}: ${JSON.stringify(value)}`)
+        .join('\n');
+
+      await sigma.ui.showDialog({
+        title: 'Hello World Settings',
+        message: `Current settings:\n\n${settingsText}\n\nYou can change these in Settings > Extensions.`,
+        type: 'info',
+        confirmText: 'OK'
       });
     }
   );

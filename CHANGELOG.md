@@ -2,6 +2,36 @@
 
 All notable changes to this extension will be documented in this file.
 
+## [1.4.0] - 2026-01-30
+
+### Added
+
+- **Configurable Settings** - Extension now has user-configurable settings:
+  - `greeting` - Customize the greeting message (default: "Hello")
+  - `showNotifications` - Enable/disable notifications (default: true)
+  - `notificationDuration` - Set notification duration in ms (default: 4000)
+  - `greetingStyle` - Choose greeting style: friendly, formal, or casual
+- New "Show Current Settings" command - displays all current setting values
+- Settings change detection using `sigma.settings.onChange()`
+
+### Changed
+
+- "Say Hello" context menu item now respects user settings:
+  - Uses configured greeting message
+  - Applies selected greeting style
+  - Respects notification duration setting
+  - Can be disabled via showNotifications setting
+- "Show Extension Info" now uses configured notification duration
+- Updated description to mention configurable settings
+
+### Technical
+
+- Demonstrates new `sigma.settings` API:
+  - `sigma.settings.get(key)` - Get a setting value with default fallback
+  - `sigma.settings.getAll()` - Get all settings at once
+  - `sigma.settings.onChange(key, callback)` - Watch for setting changes
+- Settings are automatically displayed in Settings > Extensions
+
 ## [1.3.0] - 2026-01-30
 
 ### Added
