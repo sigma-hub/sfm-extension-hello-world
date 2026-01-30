@@ -45,7 +45,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'say-hello',
-      title: '👋 Say Hello',
+      title: 'Say Hello',
+      icon: 'Hand',
       group: 'extensions',
       order: 1
     },
@@ -73,7 +74,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'count-selected',
-      title: '📊 Count Selected Items',
+      title: 'Count Selected Items',
+      icon: 'Hash',
       group: 'extensions',
       order: 2,
       when: {
@@ -97,7 +99,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'file-info',
-      title: 'ℹ️ Show File Details',
+      title: 'Show File Details',
+      icon: 'Info',
       group: 'extensions',
       order: 3,
       when: {
@@ -124,7 +127,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'copy-path',
-      title: '📋 Copy Path',
+      title: 'Copy Path',
+      icon: 'Copy',
       group: 'extensions',
       order: 4,
       when: {
@@ -187,7 +191,7 @@ async function activate(context) {
       const duration = await sigma.settings.get('notificationDuration');
       sigma.ui.showNotification({
         title: 'Example Extension',
-        message: `Version 1.8.0 - Running on Sigma File Manager v${appVersion}`,
+        message: `Version 1.9.0 - Running on Sigma File Manager v${appVersion}`,
         type: 'info',
         duration: duration || 4000
       });
@@ -322,7 +326,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'quick-view-file',
-      title: '👁️ Quick View',
+      title: 'Quick View',
+      icon: 'Eye',
       group: 'extensions',
       order: 5,
       when: {
@@ -349,7 +354,8 @@ async function activate(context) {
   sigma.contextMenu.registerItem(
     {
       id: 'open-in-explorer',
-      title: '📂 Open in System Explorer',
+      title: 'Open in System Explorer',
+      icon: 'FolderOpen',
       group: 'extensions',
       order: 6,
       when: {
