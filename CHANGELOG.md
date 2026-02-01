@@ -2,6 +2,12 @@
 
 All notable changes to this extension will be documented in this file.
 
+## Unreleased
+
+### Removed
+
+- Removed the "Open in System Explorer" context menu item.
+
 ## [1.8.0] - 2026-01-30
 
 ### Added
@@ -49,7 +55,7 @@ All notable changes to this extension will be documented in this file.
 ### Added
 
 - Added `previousName` field to manifest for backward compatibility and search
-- Extension is now searchable by its previous name "Hello World"
+- Extension is now searchable by its previous name
 
 ## [1.5.1] - 2026-01-30
 
@@ -61,7 +67,7 @@ All notable changes to this extension will be documented in this file.
 
 ### Changed
 
-- Renamed extension from "Hello World" to "Example"
+- Renamed extension to "Example"
 - Updated description to better reflect the extension's purpose as a reference implementation
 - Updated configuration title to "Example Extension Settings"
 

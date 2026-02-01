@@ -150,16 +150,6 @@
           "selectionType": "single",
           "entryType": "file"
         }
-      },
-      {
-        "id": "open-in-explorer",
-        "title": "Open in System Explorer",
-        "icon": "FolderOpen",
-        "group": "extensions",
-        "order": 6,
-        "when": {
-          "selectionType": "single"
-        }
       }
     ],
     "keybindings": [

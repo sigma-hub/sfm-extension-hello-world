@@ -29,17 +29,17 @@ function sleep(ms) {
 }
 
 async function activate(context) {
-  console.log('[Hello World] Extension activated!');
-  console.log('[Hello World] Extension path:', context.extensionPath);
+  console.log('[Example] Extension activated!');
+  console.log('[Example] Extension path:', context.extensionPath);
 
   const appVersion = await sigma.context.getAppVersion();
-  console.log('[Hello World] App version:', appVersion);
+  console.log('[Example] App version:', appVersion);
 
   const settings = await sigma.settings.getAll();
-  console.log('[Hello World] Current settings:', settings);
+  console.log('[Example] Current settings:', settings);
 
   sigma.settings.onChange('showNotifications', (newValue, oldValue) => {
-    console.log(`[Hello World] showNotifications changed from ${oldValue} to ${newValue}`);
+    console.log(`[Example] showNotifications changed from ${oldValue} to ${newValue}`);
   });
 
   sigma.contextMenu.registerItem(
@@ -53,7 +53,7 @@ async function activate(context) {
     async (menuContext) => {
       const showNotifications = await sigma.settings.get('showNotifications');
       if (!showNotifications) {
-        console.log('[Hello World] Notifications disabled, skipping');
+        console.log('[Example] Notifications disabled, skipping');
         return;
       }
 
@@ -156,7 +156,7 @@ async function activate(context) {
     async () => {
       const showNotifications = await sigma.settings.get('showNotifications');
       if (!showNotifications) {
-        console.log('[Hello World] Notifications disabled');
+        console.log('[Example] Notifications disabled');
         return;
       }
 
@@ -351,38 +351,11 @@ async function activate(context) {
     }
   );
 
-  sigma.contextMenu.registerItem(
-    {
-      id: 'open-in-explorer',
-      title: 'Open in System Explorer',
-      icon: 'FolderOpen',
-      group: 'extensions',
-      order: 6,
-      when: {
-        selectionType: 'single'
-      }
-    },
-    async (menuContext) => {
-      const entry = menuContext.selectedEntries[0];
-      if (entry) {
-        try {
-          await sigma.commands.executeCommand('sigma.navigator.openInSystemExplorer', entry.path);
-        } catch (err) {
-          sigma.ui.showNotification({
-            title: 'Error',
-            message: err.message || 'Could not open in explorer',
-            type: 'error'
-          });
-        }
-      }
-    }
-  );
-
-  console.log('[Hello World] All handlers registered!');
+  console.log('[Example] All handlers registered!');
 }
 
 async function deactivate() {
-  console.log('[Hello World] Extension deactivated!');
+  console.log('[Example] Extension deactivated!');
 }
 
 if (typeof module !== 'undefined') {

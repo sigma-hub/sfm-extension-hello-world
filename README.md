@@ -1,4 +1,4 @@
-# Hello World Extension
+# Example Extension
 
 A simple demo extension for [Sigma File Manager](https://github.com/aleksey-hoffman/sigma-file-manager) that demonstrates the extension API.
 
@@ -17,7 +17,7 @@ A simple demo extension for [Sigma File Manager](https://github.com/aleksey-hoff
 
 1. Open Sigma File Manager
 2. Navigate to **Extensions** in the sidebar
-3. Search for "Hello World"
+3. Search for "Example"
 4. Click **Install**
 
 ## Development
@@ -38,7 +38,7 @@ A simple demo extension for [Sigma File Manager](https://github.com/aleksey-hoff
 ### Project Structure
 
 ```
-sfm-extension-hello-world/
+sfm-extension-example/
 ├── manifest.json    # Extension metadata and configuration
 ├── index.js         # Main extension code
 ├── icon.png         # Extension icon (128x128)
